@@ -72,7 +72,7 @@ def webscrape_GlobalNews():
 
 
 
-def webscrape_IndianNews(n):
+def webscrape_IndianNews():
     info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
     Date = []
     news = []
