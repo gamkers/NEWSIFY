@@ -773,7 +773,7 @@ if selected2 == 'Home':
         left_coloumn, right_coloumn = st.columns(2)
         with left_coloumn:
             st.subheader("North East West South all in one Place")
-            st.title("NEWSIFY")
+            st.title("Mirage")
             st.write(
                 "NEWSIFY is Web-Based Application, helps users to find News Articles related to multiple categories like Sports,Technologies,political,Global,lifestyle,etc and We fully depends upon our own Machine learning model which categorise news from Realtime DataSet which is a well optimized dataset extracted from internet, We Provides you a best in class news from all over the WORLD")
             st.write("[Project Link >](https://github.com/gamkers/NEWSIFY)")
