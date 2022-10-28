@@ -745,6 +745,39 @@ def webscrape_foodNews():
     return data
 
 
+def data():
+    datas=[]
+    for i in webscrape_TechNews():
+        datas.append(i)
+    for i in webscrape_businessNews():
+        datas.append(i)
+    for i in webscrape_GlobalNews():
+        datas.append(i)
+    for i in webscrape_foodNews():
+        datas.append(i)
+    for i in webscrape_SportsNews():
+        datas.append(i)
+    for i in webscrape_IndianNews():
+        datas.append(i)
+    for i in webscrape_CrimeNews():
+        datas.append(i)
+    for i in webscrape_musicNews():
+        datas.append(i)
+    for i in webscrape_entertainmentNews():
+        datas.append(i)
+    for i in webscrape_INPoliticalNews():
+        datas.append(i)
+    for i in webscrape_GlobalPoliticalNews():
+        datas.append(i)
+    for i in webscrape_lifestyleNews():
+        datas.append(i)
+
+    return datas
+
+
+
+datas = data()
+
 
 
 
@@ -844,6 +877,19 @@ elif selected2 == "Search":
         ['Sports', 'Political', 'Technology', 'Music', 'Global', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business']
         )
     n = st.slider('News Count', 0, 130, 25)
+       
+    if submit:
+        for i in datas:
+            for j in i:
+                if selected in j:
+                    st.header(f' {i[0]}')
+
+                    original_title = f'<p style="font-family:Times New Roman; color:black; font-size: 18px;">{i[1]}</p>'
+                    st.markdown(original_title, unsafe_allow_html=True)
+
+                    st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
+                    st.write("_______________________________________________________________________________")
+                break
 
 
 
