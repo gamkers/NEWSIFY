@@ -4,4 +4,4 @@ requests==2.27.1
 streamlit-lottie
 streamlit-option-menu
 gTTS
-io
+requires.io
