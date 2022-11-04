@@ -4,6 +4,19 @@ from streamlit_lottie import st_lottie
 import requests
 from bs4 import BeautifulSoup
 import streamlit as st
+from gtts import gTTS
+from io import BytesIO
+
+
+def speak(text):
+    mp3_fp = BytesIO()
+    tts = gTTS(text, lang='en')
+    tts.write_to_fp(mp3_fp)
+    return mp3_fp
+
+
+
+
 st.set_page_config(page_title="NEWSIFY", page_icon=":tada:", layout='wide')
 hide_menu_style = """
         <style>
@@ -22,6 +35,7 @@ def webscrape_GlobalNews():
     catogory = []
     headlines = []
     country = []
+    images = []
     for i in range(1, 5):
         url = f"https://www.ndtv.com/world-news/page-{i}"
         r = requests.get(url)
@@ -29,7 +43,7 @@ def webscrape_GlobalNews():
         hl = data.find_all('h2', class_="newsHdng")
         new = data.find_all('p', class_="newsCont")
         author = data.find_all('span', class_="posted-by")
-
+        image = data.find_all('img', class_="img_brd marr10")
         for h in hl:
             headlines.append(h.text)
         for i in new:
@@ -58,8 +72,11 @@ def webscrape_GlobalNews():
             m = m.split(",")
             m = m[-1]
             country.append(m[:-112].replace("2022", "NA"))
+        for im in image:
+            link = im.get('src')
+            images.append(link)
 
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory))]
+    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
 
 
 
@@ -80,6 +97,7 @@ def webscrape_IndianNews():
     catogory = []
     headlines = []
     country = []
+    images=[]
     for i in range(1, 5):
         url = f"https://www.ndtv.com/latest/page-{i}"
         r = requests.get(url)
@@ -87,7 +105,7 @@ def webscrape_IndianNews():
         hl = data.find_all('h2', class_="newsHdng")
         new = data.find_all('p', class_="newsCont")
         author = data.find_all('span', class_="posted-by")
-
+        image = data.find_all('img', class_="img_brd marr10")
         for h in hl:
             headlines.append(h.text)
         for i in new:
@@ -116,6 +134,9 @@ def webscrape_IndianNews():
             m = m.split(",")
             m = m[-1]
             country.append(m[:-112].replace("2022", "NA"))
+        for im in image:
+            link = im.get('src')
+            images.append(link)
 
     for i in range(1, 5):
         url = f"https://www.ndtv.com/india/page-{i}"
@@ -124,7 +145,7 @@ def webscrape_IndianNews():
         hl = data.find_all('h2', class_="newsHdng")
         new = data.find_all('p', class_="newsCont")
         author = data.find_all('span', class_="posted-by")
-
+        image = data.find_all('img', class_="img_brd marr10")
         for h in hl:
             headlines.append(h.text)
         for i in new:
@@ -154,26 +175,31 @@ def webscrape_IndianNews():
             m = m[-1]
             country.append(m[:-112].replace("2022", "NA"))
 
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory))]
+        for im in image:
+            link = im.get('src')
+            images.append(link)
+
+    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
 
     return data
 
 
-def webscrape_SportsNews():
-    info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
+def webscrape_News(cat,n):
     Date = []
     news = []
     authors = []
     catogory = []
     headlines = []
     country = []
+    images=[]
     for i in range(1, 5):
-        url = f"https://www.ndtv.com/page/topic-load-more/from/allnews/type/news/page/{i}/query/sports"
+        url = f"https://www.ndtv.com/page/topic-load-more/from/allnews/type/news/page/{i}/query/{cat}"
         r = requests.get(url)
         data = BeautifulSoup(r.text, "html.parser")
         hl = data.find_all('div', class_="src_itm-ttl")
         new = data.find_all('div', class_="src_itm-txt")
         author = data.find_all('span', class_="src_itm-stx")
+        image =data.find_all('img', class_="img_brd marr10")
 
         for h in hl:
             headlines.append(h.text)
@@ -197,589 +223,50 @@ def webscrape_SportsNews():
             catogory.append("Sports")
         for m in author:
             country.append("India")
+        for im in image:
+            link = im.get('src')
+            images.append(link)
 
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory))]
-
-    return data
-
-
-
-def webscrape_musicNews():
-    info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
-    Date = []
-    news = []
-    authors = []
-    catogory = []
-    headlines = []
-    country = []
-    for i in range(1, 5):
-        url = f"https://www.ndtv.com/page/topic-load-more/from/allnews/type/news/page/{i}/query/music"
-        r = requests.get(url)
-        data = BeautifulSoup(r.text, "html.parser")
-        hl = data.find_all('div', class_="src_itm-ttl")
-        new = data.find_all('div', class_="src_itm-txt")
-        author = data.find_all('span', class_="src_itm-stx")
-
-        for h in hl:
-            headlines.append(h.text)
-        for i in new:
-            i = i.text
-            news.append(i[25:-20])
-        for j in author:
-            j = j.text.split("|")
-            if len(j) == 2:
-                j = j[0]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j[25:])
-            else:
-                j = j[1]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j)
-
-        for k in author:
-            k = k.text.split("|")
-            k = k[-1]
-            Date.append(k[:-20])
-        for l in new:
-            catogory.append("Music")
-        for m in author:
-            country.append("World")
-
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory))]
+    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
 
     return data
 
 
-
-
-def webscrape_INPoliticalNews():
-    info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
-    Date = []
-    news = []
-    authors = []
-    catogory = []
-    headlines = []
-    country = []
-    for i in range(1, 5):
-        url = f"https://www.ndtv.com/page/topic-load-more/from/allnews/type/news/page/{i}/query/indian-politics"
-        r = requests.get(url)
-        data = BeautifulSoup(r.text, "html.parser")
-        hl = data.find_all('div', class_="src_itm-ttl")
-        new = data.find_all('div', class_="src_itm-txt")
-        author = data.find_all('span', class_="src_itm-stx")
-
-        for h in hl:
-            headlines.append(h.text)
-        for i in new:
-            i = i.text
-            news.append(i[25:-20])
-        for j in author:
-            j = j.text.split("|")
-            if len(j) == 2:
-                j = j[0]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j[25:])
-            else:
-                j = j[1]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j)
-
-        for k in author:
-            k = k.text.split("|")
-            k = k[-1]
-            Date.append(k[:-20])
-        for l in new:
-            catogory.append("Indian Politics")
-        for m in author:
-            country.append("India")
-
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory))]
-
-    return data
-
-
-
-
-
-def webscrape_GlobalPoliticalNews():
-    info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
-    Date = []
-    news = []
-    authors = []
-    catogory = []
-    headlines = []
-    country = []
-    for i in range(1, 5):
-        url = f"https://www.ndtv.com/page/topic-load-more/from/allnews/type/news/page/{i}/query/politics"
-        r = requests.get(url)
-        data = BeautifulSoup(r.text, "html.parser")
-        hl = data.find_all('div', class_="src_itm-ttl")
-        new = data.find_all('div', class_="src_itm-txt")
-        author = data.find_all('span', class_="src_itm-stx")
-
-        for h in hl:
-            headlines.append(h.text)
-        for i in new:
-            i = i.text
-            news.append(i[25:-20])
-        for j in author:
-            j = j.text.split("|")
-            if len(j) == 2:
-                j = j[0]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j[25:])
-            else:
-                j = j[1]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j)
-
-        for k in author:
-            k = k.text.split("|")
-            k = k[-1]
-            Date.append(k[:-20])
-        for l in new:
-            catogory.append("Global Politics")
-        for m in author:
-            country.append("Global")
-
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory))]
-
-    return data
-
-
-
-
-
-
-def webscrape_TechNews():
-    info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
-    Date = []
-    news = []
-    authors = []
-    catogory = []
-    headlines = []
-    country = []
-    for i in range(1, 5):
-        url = f"https://www.ndtv.com/page/topic-load-more/from/allnews/type/news/page/{i}/query/tech"
-        r = requests.get(url)
-        data = BeautifulSoup(r.text, "html.parser")
-        hl = data.find_all('div', class_="src_itm-ttl")
-        new = data.find_all('div', class_="src_itm-txt")
-        author = data.find_all('span', class_="src_itm-stx")
-
-        for h in hl:
-            headlines.append(h.text)
-        for i in new:
-            i = i.text
-            news.append(i[25:-20])
-        for j in author:
-            j = j.text.split("|")
-            if len(j) == 2:
-                j = j[0]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j[25:])
-            else:
-                j = j[1]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j)
-
-        for k in author:
-            k = k.text.split("|")
-            k = k[-1]
-            Date.append(k[:-20])
-        for l in new:
-            catogory.append("Tech")
-        for m in author:
-            country.append("Global")
-
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory))]
-    return data
-
-
-
-
-
-
-def webscrape_entertainmentNews():
-    info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
-    Date = []
-    news = []
-    authors = []
-    catogory = []
-    headlines = []
-    country = []
-    for i in range(1, 5):
-        url = f"https://www.ndtv.com/page/topic-load-more/from/allnews/type/news/page/{i}/query/entertainment"
-        r = requests.get(url)
-        data = BeautifulSoup(r.text, "html.parser")
-        hl = data.find_all('div', class_="src_itm-ttl")
-        new = data.find_all('div', class_="src_itm-txt")
-        author = data.find_all('span', class_="src_itm-stx")
-
-        for h in hl:
-            headlines.append(h.text)
-        for i in new:
-            i = i.text
-            news.append(i[25:-20])
-        for j in author:
-            j = j.text.split("|")
-            if len(j) == 2:
-                j = j[0]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j[25:])
-            else:
-                j = j[1]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j)
-
-        for k in author:
-            k = k.text.split("|")
-            k = k[-1]
-            Date.append(k[:-20])
-        for l in new:
-            catogory.append("Entertainment")
-        for m in author:
-            country.append("Global")
-
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory))]
-
-    return data
-
-
-
-
-
-def webscrape_lifestyleNews():
-    info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
-    Date = []
-    news = []
-    authors = []
-    catogory = []
-    headlines = []
-    country = []
-    for i in range(1, 5):
-        url = f"https://www.ndtv.com/page/topic-load-more/from/allnews/type/news/page/{i}/query/life-style"
-        r = requests.get(url)
-        data = BeautifulSoup(r.text, "html.parser")
-        hl = data.find_all('div', class_="src_itm-ttl")
-        new = data.find_all('div', class_="src_itm-txt")
-        author = data.find_all('span', class_="src_itm-stx")
-
-        for h in hl:
-            headlines.append(h.text)
-        for i in new:
-            i = i.text
-            news.append(i[25:-20])
-        for j in author:
-            j = j.text.split("|")
-            if len(j) == 2:
-                j = j[0]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j[25:])
-            elif len(j) == 1:
-                j = j[0]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j[25:])
-            else:
-                j = j[1]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j)
-
-        for k in author:
-            k = k.text.split("|")
-            k = k[-1]
-            Date.append(k[:-20])
-        for l in new:
-            catogory.append("Life style")
-        for m in author:
-            country.append("Global")
-
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory))]
-
-    return data
-
-
-
-
-
-
-def webscrape_CrimeNews():
-    info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
-    Date = []
-    news = []
-    authors = []
-    catogory = []
-    headlines = []
-    country = []
-    for i in range(1, 5):
-        url = f"https://www.ndtv.com/page/topic-load-more/from/allnews/type/news/page/{i}/query/crime"
-        r = requests.get(url)
-        data = BeautifulSoup(r.text, "html.parser")
-        hl = data.find_all('div', class_="src_itm-ttl")
-        new = data.find_all('div', class_="src_itm-txt")
-        author = data.find_all('span', class_="src_itm-stx")
-
-        for h in hl:
-            headlines.append(h.text)
-        for i in new:
-            i = i.text
-            news.append(i[25:-20])
-        for j in author:
-            j = j.text.split("|")
-            if len(j) == 2:
-                j = j[0]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j[25:])
-            elif len(j) == 1:
-                j = j[0]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j[25:])
-            else:
-                j = j[1]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j)
-
-        for k in author:
-            k = k.text.split("|")
-            k = k[-1]
-            Date.append(k[:-20])
-        for l in new:
-            catogory.append("Crime")
-        for m in author:
-            country.append("Global")
-
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory))]
-
-    return data
-
-
-
-
-def webscrape_businessNews():
-    info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
-    Date = []
-    news = []
-    authors = []
-    catogory = []
-    headlines = []
-    country = []
-    for i in range(1, 5):
-        url = f"https://www.ndtv.com/page/topic-load-more/from/allnews/type/news/page/{i}/query/business"
-        r = requests.get(url)
-        data = BeautifulSoup(r.text, "html.parser")
-        hl = data.find_all('div', class_="src_itm-ttl")
-        new = data.find_all('div', class_="src_itm-txt")
-        author = data.find_all('span', class_="src_itm-stx")
-
-        for h in hl:
-            headlines.append(h.text)
-        for i in new:
-            i = i.text
-            news.append(i[25:-20])
-        for j in author:
-            j = j.text.split("|")
-            if len(j) == 2:
-                j = j[0]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j[25:])
-            elif len(j) == 1:
-                j = j[0]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j[25:])
-            else:
-                j = j[1]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j)
-
-        for k in author:
-            k = k.text.split("|")
-            k = k[-1]
-            Date.append(k[:-20])
-        for l in new:
-            catogory.append("business")
-        for m in author:
-            country.append("Global")
-
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory))]
-    return data
-
-
-
-
-
-
-def webscrape_foodNews():
-    info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
-    Date = []
-    news = []
-    authors = []
-    catogory = []
-    headlines = []
-    country = []
-    for i in range(1, 5):
-        url = f"https://www.ndtv.com/page/topic-load-more/from/allnews/type/news/page/{i}/query/food"
-        r = requests.get(url)
-        data = BeautifulSoup(r.text, "html.parser")
-        hl = data.find_all('div', class_="src_itm-ttl")
-        new = data.find_all('div', class_="src_itm-txt")
-        author = data.find_all('span', class_="src_itm-stx")
-
-        for h in hl:
-            headlines.append(h.text)
-        for i in new:
-            i = i.text
-            news.append(i[25:-20])
-        for j in author:
-            j = j.text.split("|")
-            if len(j) == 2:
-                j = j[0]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j[25:])
-            elif len(j) == 1:
-                j = j[0]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j[25:])
-            else:
-                j = j[1]
-                if "by" in j:
-                    s = j.split("by")
-                    j = s[-1]
-                    authors.append(j)
-                else:
-                    authors.append(j)
-
-        for k in author:
-            k = k.text.split("|")
-            k = k[-1]
-            Date.append(k[:-20])
-        for l in new:
-            catogory.append("Food")
-        for m in author:
-            country.append("Global")
-
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory))]
-    return data
-
-
-def data():
-    datas=[]
-    for i in webscrape_TechNews():
-        datas.append(i)
-    for i in webscrape_businessNews():
-        datas.append(i)
-    for i in webscrape_GlobalNews():
-        datas.append(i)
-    for i in webscrape_foodNews():
-        datas.append(i)
-    for i in webscrape_SportsNews():
-        datas.append(i)
-    for i in webscrape_IndianNews():
-        datas.append(i)
-    for i in webscrape_CrimeNews():
-        datas.append(i)
-    for i in webscrape_musicNews():
-        datas.append(i)
-    for i in webscrape_entertainmentNews():
-        datas.append(i)
-    for i in webscrape_INPoliticalNews():
-        datas.append(i)
-    for i in webscrape_GlobalPoliticalNews():
-        datas.append(i)
-    for i in webscrape_lifestyleNews():
-        datas.append(i)
-
-    return datas
-
-
-
-datas = data()
-
-
-
+def display(data):
+    voice = []
+    for i in range(5):
+        data1 = data[i][1].split(":")
+        voice.append(f"news number{str(i + 1)}," + data1[0] + '.')
+    audio_bytes = speak('.'.join(map(str, voice)))
+    st.audio(audio_bytes, format='audio/ogg')
+    if submit:
+        for i in data:
+            for j in i:
+                if selected in j:
+                    st.header(f' {i[0]}')
+
+                    original_title = f'<p style="font-family:Times New Roman; font-size: 18px;">{i[1]}</p>'
+                    st.markdown(original_title, unsafe_allow_html=True)
+
+                    st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
+                    st.write("_______________________________________________________________________________")
+                break
+
+    for i in range(n):
+        data1 = data[i][0].split(":")
+        st.header(f'{data1[0]}')
+        with st.container():
+            left_coloumn, right_coloumn = st.columns(2)
+            with left_coloumn:
+                st.image(data[i][6], width=355)
+            with right_coloumn:
+                st.write("                                                                                ")
+                st.write("                                                                                ")
+                original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{data[i][1]}</p>'
+                st.markdown(original_title, unsafe_allow_html=True)
+                st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
+
+        st.write("_______________________________________________________________________________")
 
 
 
@@ -809,7 +296,7 @@ if selected2 == 'Home':
             st.title("NEWSIFY")
             st.write(
                 "NEWSIFY is Web-Based Application, helps users to find News Articles related to multiple categories like Sports,Technologies,political,Global,lifestyle,etc and We fully depends upon our own Machine learning model which categorise news from Realtime DataSet which is a well optimized dataset extracted from internet, We Provides you a best in class news from all over the WORLD")
-            st.write("[Project Link >](https://github.com/gamkers/NEWSIFY)")
+            st.write("[Project Link >](https://github.com/gamkers/STUDENTBAE)")
         with right_coloumn:
             st_lottie(lottie_coding, height=500, key="DEVELOPERS")
 
@@ -872,273 +359,74 @@ elif selected2 == "Search":
     selected = form.text_input("", "")
     submit = form.form_submit_button("SEARCH")
 
+
     options = st.multiselect(
         'What you Looking for?',
         ['Sports', 'Political', 'Technology', 'Music', 'Global', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business']
         )
+
     n = st.slider('News Count', 0, 130, 25)
-       
+
+
     if submit:
-        for i in datas:
-            for j in i:
-                if selected in j:
-                    st.header(f' {i[0]}')
-
-                    original_title = f'<p style="font-family:Times New Roman; color:black; font-size: 18px;">{i[1]}</p>'
+        data = webscrape_News(selected,n)
+        voice=[]
+        for i in range(n):
+            data1 = data[i][0].split(":")
+            voice.append(f"news number{str(i + 1)}," + data1[0] + '.')
+        audio_bytes = speak('.'.join(map(str, voice)))
+        st.audio(audio_bytes, format='audio/ogg')
+        for i in range(n):
+            data1 = data[i][0].split(":")
+            st.header(f'{data1[0]}')
+            with st.container():
+                left_coloumn, right_coloumn = st.columns(2)
+                with left_coloumn:
+                    st.image(data[i][6],width=355)
+                with right_coloumn:
+                    st.write("                                                                                ")
+                    st.write("                                                                                ")
+                    original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{data[i][1]}</p>'
                     st.markdown(original_title, unsafe_allow_html=True)
+                    st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
 
-                    st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
-                    st.write("_______________________________________________________________________________")
-                break
+            st.write("_______________________________________________________________________________")
 
 
 
     if "Global" in options:
         data=webscrape_GlobalNews()
-        if submit:
-            for i in data:
-                for j in i:
-                    if selected in j:
-                        st.header(f'{i[0]}')
-
-                        original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{i[1]}</p>'
-                        st.markdown(original_title, unsafe_allow_html=True)
-                        st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
-                        st.write("_______________________________________________________________________________")
-                    break
-
-        for i in range(n):
-            st.header(f'{data[i][0]}')
-
-            original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{data[i][1]}</p>'
-            st.markdown(original_title, unsafe_allow_html=True)
-
-
-
-            st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
-            st.write("_______________________________________________________________________________")
-
-
+        display(data)
 
     elif "LifeStyle" in options:
-        data=webscrape_lifestyleNews()
-        if submit:
-            for i in data:
-                for j in i:
-                    if selected in j:
-                        st.header(f' {i[0]}')
-
-                        original_title = f'<p style="font-family:Times New Roman; color:black; font-size: 18px;">{i[1]}</p>'
-                        st.markdown(original_title, unsafe_allow_html=True)
-
-                        st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
-                        st.write("_______________________________________________________________________________")
-                    break
-
-        for i in range(n):
-            st.header(f'{data[i][0]}')
-
-            original_title = f'<p style="font-family:Times New Roman; font-size: 18px;">{data[i][1]}</p>'
-            st.markdown(original_title, unsafe_allow_html=True)
-
-            st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
-            st.write("_______________________________________________________________________________")
-
+        data=webscrape_News("life-style",n)
+        display(data)
     elif "Sports" in options:
-        data=webscrape_SportsNews()
-        if submit:
-            for i in data:
-                for j in i:
-                    if selected in j:
-                        st.header(f' {i[0]}')
-
-                        original_title = f'<p style="font-family:Times New Roman; color:black; font-size: 18px;">{i[1]}</p>'
-                        st.markdown(original_title, unsafe_allow_html=True)
-
-                        st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
-                        st.write("_______________________________________________________________________________")
-                    break
-
-        for i in range(n):
-            st.header(f'{data[i][0]}')
-
-            original_title = f'<p style="font-family:Times New Roman; font-size: 18px;">{data[i][1]}</p>'
-            st.markdown(original_title, unsafe_allow_html=True)
-
-            st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
-            st.write("_______________________________________________________________________________")
-
-
+        data=webscrape_News("Sports",n)
+        display(data)
     elif "Political" in options:
-        data=webscrape_INPoliticalNews()
-        if submit:
-            for i in data:
-                for j in i:
-                    if selected in j:
-                        st.header(f' {i[0]}')
-
-                        original_title = f'<p style="font-family:Times New Roman; font-size: 18px;">{i[1]}</p>'
-                        st.markdown(original_title, unsafe_allow_html=True)
-
-                        st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
-                        st.write("_______________________________________________________________________________")
-                    break
-
-        for i in range(n):
-            st.header(f'{data[i][0]}')
-
-            original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{data[i][1]}</p>'
-            st.markdown(original_title, unsafe_allow_html=True)
-
-            st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
-            st.write("_______________________________________________________________________________")
-
+        data=webscrape_News("indian-politics",n)
+        display(data)
     elif "Crime" in options:
 
-        data=webscrape_CrimeNews()
-        if submit:
-            for i in data:
-                for j in i:
-                    if selected in j:
-                        st.header(f' {i[0]}')
-
-                        original_title = f'<p style="font-family:Times New Roman; font-size: 18px;">{i[1]}</p>'
-                        st.markdown(original_title, unsafe_allow_html=True)
-
-                        st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
-                        st.write("_______________________________________________________________________________")
-                    break
-
-        for i in range(n):
-            st.header(f'{data[i][0]}')
-
-            original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{data[i][1]}</p>'
-            st.markdown(original_title, unsafe_allow_html=True)
-
-            st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
-            st.write("_______________________________________________________________________________")
-
+        data=webscrape_News("crime",n)
+        display(data)
     elif "Music" in options:
-        data=webscrape_musicNews()
-        if submit:
-            for i in data:
-                for j in i:
-                    if selected in j:
-                        st.header(f' {i[0]}')
-
-                        original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{i[1]}</p>'
-                        st.markdown(original_title, unsafe_allow_html=True)
-
-                        st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
-                        st.write("_______________________________________________________________________________")
-                    break
-
-        for i in range(n):
-            st.header(f'{data[i][0]}')
-
-            original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{data[i][1]}</p>'
-            st.markdown(original_title, unsafe_allow_html=True)
-
-            st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
-            st.write("_______________________________________________________________________________")
-
+        data=webscrape_News("music",n)
+        display(data)
     elif "Technology" in options:
-        data = webscrape_TechNews()
-        if submit:
-            for i in data:
-                for j in i:
-                    if selected in j:
-                        st.header(f' {i[0]}')
-
-                        original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{i[1]}</p>'
-                        st.markdown(original_title, unsafe_allow_html=True)
-
-                        st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
-                        st.write("_______________________________________________________________________________")
-                    break
-
-        for i in range(n):
-            st.header(f'{data[i][0]}')
-
-            original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{data[i][1]}</p>'
-            st.markdown(original_title, unsafe_allow_html=True)
-
-            st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
-            st.write("_______________________________________________________________________________")
+        data = webscrape_News("Tech",n)
+        display(data)
 
     elif "Food" in options:
-        data = webscrape_foodNews()
-        if submit:
-            for i in data:
-                for j in i:
-                    if selected in j:
-                        st.header(f' {i[0]}')
-
-                        original_title = f'<p style="font-family:Times New Roman; color:black; font-size: 18px;">{i[1]}</p>'
-                        st.markdown(original_title, unsafe_allow_html=True)
-
-                        st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
-                        st.write("_______________________________________________________________________________")
-                    break
-
-        for i in range(n):
-            st.header(f'{data[i][0]}')
-
-            original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{data[i][1]}</p>'
-            st.markdown(original_title, unsafe_allow_html=True)
-
-            st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
-            st.write("_______________________________________________________________________________")
-
+        data = webscrape_News("food",n)
+        display(data)
     elif "Business" in options:
-        data = webscrape_businessNews()
-        if submit:
-            for i in data:
-                for j in i:
-                    if selected in j:
-                        st.header(f' {i[0]}')
-
-                        original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{i[1]}</p>'
-                        st.markdown(original_title, unsafe_allow_html=True)
-
-                        st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
-                        st.write("_______________________________________________________________________________")
-                    break
-
-        for i in range(n):
-            st.header(f'{data[i][0]}')
-
-            original_title = f'<p style="font-family:Times New Roman; font-size: 18px;">{data[i][1]}</p>'
-            st.markdown(original_title, unsafe_allow_html=True)
-
-            st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
-            st.write("_______________________________________________________________________________")
-
+        data = webscrape_News("business",n)
+        display(data)
     elif "Entertainment" in options:
-        data = webscrape_entertainmentNews()
-        if submit:
-            for i in data:
-                for j in i:
-                    if selected in j:
-                        st.header(f' {i[0]}')
-
-                        original_title = f'<p style="font-family:Times New Roman; font-size: 18px;">{i[1]}</p>'
-                        st.markdown(original_title, unsafe_allow_html=True)
-
-                        st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
-                        st.write("_______________________________________________________________________________")
-                    break
-
-        for i in range(n):
-            st.header(f'{data[i][0]}')
-
-            original_title = f'<p style="font-family:Times New Roman; font-size: 18px;">{data[i][1]}</p>'
-            st.markdown(original_title, unsafe_allow_html=True)
-
-            st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
-            st.write("_______________________________________________________________________________")
-
-
+        data = webscrape_News("entertainment",n)
+        display(data)
 
 
 
