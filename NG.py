@@ -405,7 +405,7 @@ elif selected2 == "Search":
         data=webscrape_News("Sports",n)
         display(data)
     elif "Political" in options:
-        data=webscrape_News("indian-politics",n)
+        data=webscrape_News("politics",n)
         display(data)
     elif "Crime" in options:
 
