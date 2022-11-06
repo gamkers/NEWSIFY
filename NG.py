@@ -235,7 +235,7 @@ def webscrape_News(cat,n):
 def display(data):
     voice = []
     for i in range(5):
-        data1 = data[i][1].split(":")
+        data1 = data[i][1].split(";")
         voice.append(f"news number{str(i + 1)}," + data1[0] + '.')
     audio_bytes = speak('.'.join(map(str, voice)))
     st.audio(audio_bytes, format='audio/ogg')
@@ -253,7 +253,7 @@ def display(data):
                 break
 
     for i in range(n):
-        data1 = data[i][0].split(":")
+        data1 = data[i][0].split(";")
         st.header(f'{data1[0]}')
         with st.container():
             left_coloumn, right_coloumn = st.columns(2)
