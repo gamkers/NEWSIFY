@@ -415,7 +415,7 @@ elif selected2 == "Search":
         data=webscrape_News("music",n)
         display(data)
     elif "Technology" in options:
-        data = webscrape_News("Tech",n)
+        data = webscrape_News("technology",n)
         display(data)
 
     elif "Food" in options:
