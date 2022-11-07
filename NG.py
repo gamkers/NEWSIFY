@@ -43,7 +43,7 @@ def webscrape_GlobalNews():
         hl = data.find_all('h2', class_="newsHdng")
         new = data.find_all('p', class_="newsCont")
         author = data.find_all('span', class_="posted-by")
-        image = data.find_all('img', class_="img_brd marr10")
+        image = data.find_all('img', class_="news_Itm-img")
         for h in hl:
             headlines.append(h.text)
         for i in new:
@@ -73,7 +73,7 @@ def webscrape_GlobalNews():
             m = m[-1]
             country.append(m[:-112].replace("2022", "NA"))
         for im in image:
-            link = im.get('src')
+            link =im.find('img').get('src')
             images.append(link)
 
     data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
@@ -105,7 +105,7 @@ def webscrape_latestNews():
         hl = data.find_all('h2', class_="newsHdng")
         new = data.find_all('p', class_="newsCont")
         author = data.find_all('span', class_="posted-by")
-        image = data.find_all('img', class_="img_brd marr10")
+        image = data.find_all('img', class_="news_Itm-img")
         for h in hl:
             headlines.append(h.text)
         for i in new:
@@ -135,7 +135,7 @@ def webscrape_latestNews():
             m = m[-1]
             country.append(m[:-112].replace("2022", "NA"))
         for im in image:
-            link = im.get('src')
+            link =im.find('img').get('src')
             images.append(link)
         
     data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
@@ -158,7 +158,7 @@ def webscrape_indianNews():
         hl = data.find_all('h2', class_="newsHdng")
         new = data.find_all('p', class_="newsCont")
         author = data.find_all('span', class_="posted-by")
-        image = data.find_all('img', class_="img_brd marr10")
+        image = data.find_all('img', class_="news_Itm-img")
         for h in hl:
             headlines.append(h.text)
         for i in new:
@@ -189,7 +189,7 @@ def webscrape_indianNews():
             country.append(m[:-112].replace("2022", "NA"))
 
         for im in image:
-            link = im.get('src')
+            link =im.find('img').get('src')
             images.append(link)
 
     data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
