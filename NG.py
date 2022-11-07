@@ -43,7 +43,7 @@ def webscrape_GlobalNews():
         hl = data.find_all('h2', class_="newsHdng")
         new = data.find_all('p', class_="newsCont")
         author = data.find_all('span', class_="posted-by")
-        image = data.find_all('img', class_="news_Itm-img")
+        image = data.find_all('div', class_="news_Itm-img")
         for h in hl:
             headlines.append(h.text)
         for i in new:
@@ -105,7 +105,7 @@ def webscrape_latestNews():
         hl = data.find_all('h2', class_="newsHdng")
         new = data.find_all('p', class_="newsCont")
         author = data.find_all('span', class_="posted-by")
-        image = data.find_all('img', class_="news_Itm-img")
+        image = data.find_all('div', class_="news_Itm-img")
         for h in hl:
             headlines.append(h.text)
         for i in new:
@@ -158,7 +158,7 @@ def webscrape_indianNews():
         hl = data.find_all('h2', class_="newsHdng")
         new = data.find_all('p', class_="newsCont")
         author = data.find_all('span', class_="posted-by")
-        image = data.find_all('img', class_="news_Itm-img")
+        image = data.find_all('div', class_="news_Itm-img")
         for h in hl:
             headlines.append(h.text)
         for i in new:
