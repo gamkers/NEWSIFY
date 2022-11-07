@@ -98,7 +98,7 @@ def webscrape_latestNews():
     headlines = []
     country = []
     images=[]
-    for i in range(1, 5):
+    for i in range(0, 5):
         url = f"https://www.ndtv.com/latest/page-{i}"
         r = requests.get(url)
         data = BeautifulSoup(r.text, "html.parser")
