@@ -367,7 +367,7 @@ elif selected2 == "Search":
 
     options = st.multiselect(
         'What you Looking for?',
-        ['latest','Sports', 'Political', 'Technology', 'Music', 'Indain', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business']
+        ['Latest','Sports', 'Political', 'Technology', 'Music', 'Indain', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business']
         )
 
     n = st.slider('News Count', 0, 130, 25)
