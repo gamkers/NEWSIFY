@@ -143,7 +143,7 @@ def webscrape_latestNews():
     return data
 
 def webscrape_indianNews():
-    for i in range(1, 5):
+    for i in range(0, 5):
         url = f"https://www.ndtv.com/india/page-{i}"
         r = requests.get(url)
         data = BeautifulSoup(r.text, "html.parser")
@@ -367,7 +367,7 @@ elif selected2 == "Search":
 
     options = st.multiselect(
         'What you Looking for?',
-        ['Latest','Sports', 'Political', 'Technology', 'Music', 'Indain', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business']
+        ['Latest','Sports', 'Political', 'Technology', 'Music', 'Indian', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business']
         )
 
     n = st.slider('News Count', 0, 130, 25)
