@@ -26,70 +26,7 @@ hide_menu_style = """
         """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
-
-def webscrape_GlobalNews():
-    info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
-    Date = []
-    news = []
-    authors = []
-    catogory = []
-    headlines = []
-    country = []
-    images = []
-    for i in range(1, 5):
-        url = f"https://www.ndtv.com/world-news/page-{i}"
-        r = requests.get(url)
-        data = BeautifulSoup(r.text, "html.parser")
-        hl = data.find_all('h2', class_="newsHdng")
-        new = data.find_all('p', class_="newsCont")
-        author = data.find_all('span', class_="posted-by")
-        image = data.find_all('div', class_="news_Itm-img")
-        for h in hl:
-            headlines.append(h.text)
-        for i in new:
-            i = i.text.replace("\n", "")
-            news.append(i)
-        for j in author:
-            j = j.text.split("|")
-            j = j[0]
-            if "by" in j:
-                s = j.split("by")
-                j = s[-1]
-            authors.append(j[:-3])
-        for k in author:
-            k = k.text.split("|")
-            k = k[-1]
-            k = k.split(",")
-            if len(k) == 2:
-                Date.append(",".join(k[0:2])[:-112])
-            else:
-                Date.append(",".join(k[0:2]))
-        for l in new:
-            catogory.append("Global")
-        for m in author:
-            m = m.text.split("|")
-            m = m[-1]
-            m = m.split(",")
-            m = m[-1]
-            country.append(m[:-112].replace("2022", "NA"))
-        for im in image:
-            link =im.find('img').get('src')
-            images.append(link)
-
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
-
-
-
-
-
-    return data
-
-
-
-
-
-
-def webscrape_latestNews():
+def webscrape_MainNews(type):
     info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
     Date = []
     news = []
@@ -99,7 +36,7 @@ def webscrape_latestNews():
     country = []
     images=[]
     for i in range(0, 5):
-        url = f"https://www.ndtv.com/latest/page-{i}"
+        url = f"https://www.ndtv.com/{type}/page-{i}"
         r = requests.get(url)
         data = BeautifulSoup(r.text, "html.parser")
         hl = data.find_all('h2', class_="newsHdng")
@@ -127,60 +64,7 @@ def webscrape_latestNews():
             else:
                 Date.append(",".join(k[0:2]))
         for l in new:
-            catogory.append("Indan")
-        for m in author:
-            m = m.text.split("|")
-            m = m[-1]
-            m = m.split(",")
-            m = m[-1]
-            country.append(m[:-112].replace("2022", "NA"))
-        for im in image:
-            link =im.find('img').get('src')
-            images.append(link)
-        
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
-
-    return data
-
-def webscrape_indianNews():
-    info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
-    Date = []
-    news = []
-    authors = []
-    catogory = []
-    headlines = []
-    country = []
-    images=[]
-    for i in range(0, 5):
-        url = f"https://www.ndtv.com/india/page-{i}"
-        r = requests.get(url)
-        data = BeautifulSoup(r.text, "html.parser")
-        hl = data.find_all('h2', class_="newsHdng")
-        new = data.find_all('p', class_="newsCont")
-        author = data.find_all('span', class_="posted-by")
-        image = data.find_all('div', class_="news_Itm-img")
-        for h in hl:
-            headlines.append(h.text)
-        for i in new:
-            i = i.text.replace("\n", "")
-            news.append(i)
-        for j in author:
-            j = j.text.split("|")
-            j = j[0]
-            if "by" in j:
-                s = j.split("by")
-                j = s[-1]
-            authors.append(j[:-3])
-        for k in author:
-            k = k.text.split("|")
-            k = k[-1]
-            k = k.split(",")
-            if len(k) == 2:
-                Date.append(",".join(k[0:2])[:-112])
-            else:
-                Date.append(",".join(k[0:2]))
-        for l in new:
-            catogory.append("Indan")
+            catogory.append(type)
         for m in author:
             m = m.text.split("|")
             m = m[-1]
@@ -190,12 +74,12 @@ def webscrape_indianNews():
 
         for im in image:
             link =im.find('img').get('src')
+            
             images.append(link)
 
     data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
 
     return data
-
 
 def webscrape_News(cat,n):
     Date = []
@@ -375,7 +259,7 @@ elif selected2 == "Search":
 
     options = st.multiselect(
         'What you Looking for?',
-        ['Latest','Global','Indian','Sports', 'Political', 'Technology', 'Music', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business']
+        ['Latest','Global','Indian','South Indian','Sports', 'Political', 'Technology','Science', 'Music', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business']
         )
 
     n = st.slider('News Count', 0, 130, 25)
@@ -408,7 +292,7 @@ elif selected2 == "Search":
 
 
     if "Global" in options:
-        data=webscrape_GlobalNews()
+        data=webscrape_MainNews("world-news")
         display(data)
 
     elif "LifeStyle" in options:
@@ -442,11 +326,17 @@ elif selected2 == "Search":
         display(data)
         
     elif "Latest" in options:
-        data = webscrape_latestNews()
+        data = webscrape_MainNews("latest")
         display(data)
         
     elif "Indian" in options:
-        data = webscrape_indianNews()
+        data = webscrape_indanNews("indian")
+        display(data)
+    elif "South Indian" in options:
+        data = webscrape_indanNews("south")
+        display(data)
+    elif "Science" in options:
+        data = webscrape_indanNews("science")
         display(data)
 
 
