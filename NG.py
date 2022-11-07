@@ -89,7 +89,7 @@ def webscrape_GlobalNews():
 
 
 
-def webscrape_IndianNews():
+def webscrape_latestNews():
     info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
     Date = []
     news = []
@@ -137,7 +137,12 @@ def webscrape_IndianNews():
         for im in image:
             link = im.get('src')
             images.append(link)
+        
+    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
 
+    return data
+
+def webscrape_indianNews():
     for i in range(1, 5):
         url = f"https://www.ndtv.com/india/page-{i}"
         r = requests.get(url)
@@ -362,7 +367,7 @@ elif selected2 == "Search":
 
     options = st.multiselect(
         'What you Looking for?',
-        ['Sports', 'Political', 'Technology', 'Music', 'Global', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business']
+        ['latest','Sports', 'Political', 'Technology', 'Music', 'Indain', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business']
         )
 
     n = st.slider('News Count', 0, 130, 25)
@@ -426,6 +431,14 @@ elif selected2 == "Search":
         display(data)
     elif "Entertainment" in options:
         data = webscrape_News("entertainment",n)
+        display(data)
+        
+    elif "Latest" in options:
+        data = webscrape_latestNews()
+        display(data)
+        
+    elif "Indian" in options:
+        data = webscrape_indianNews()
         display(data)
 
 
