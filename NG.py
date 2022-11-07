@@ -330,13 +330,13 @@ elif selected2 == "Search":
         display(data)
         
     elif "Indian" in options:
-        data = webscrape_indanNews("indian")
+        data = webscrape_MainNews("indian")
         display(data)
     elif "South Indian" in options:
-        data = webscrape_indanNews("south")
+        data = webscrape_MainNews("south")
         display(data)
     elif "Science" in options:
-        data = webscrape_indanNews("science")
+        data = webscrape_MainNews("science")
         display(data)
 
 
