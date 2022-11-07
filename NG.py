@@ -143,6 +143,14 @@ def webscrape_latestNews():
     return data
 
 def webscrape_indianNews():
+    info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
+    Date = []
+    news = []
+    authors = []
+    catogory = []
+    headlines = []
+    country = []
+    images=[]
     for i in range(0, 5):
         url = f"https://www.ndtv.com/india/page-{i}"
         r = requests.get(url)
