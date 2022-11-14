@@ -204,7 +204,7 @@ if selected2 == 'Home':
             st_lottie(lottie_coding2, height=400, key="STUDENTS")
 
         with right_coloumn:
-            st.header("WHY NEWSIFY?")
+            st.header("WHY இன்று")
             st.write("##")
             st.write(
                 """
