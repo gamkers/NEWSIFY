@@ -230,9 +230,9 @@ elif selected2 == 'Developers':
             st.write("B.Tech CSE")
             st.subheader("Sudha Sirisha k")
             st.write("B.Tech CSE")
-            st.subheader("Surandhran")
+            st.subheader("Surendharan TG")
             st.write("B.Tech CSE")
-            st.subheader("Dinesh Dhanasingh")
+            st.subheader("Dinesh Dhanasingh D")
 
             st.write("B.Tech CSE")
         with right_coloumn:
