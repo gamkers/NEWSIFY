@@ -226,11 +226,14 @@ elif selected2 == 'Developers':
         with left_coloumn:
 
             st.header("DEVELOPERS")
-            st.subheader("AKASH T")
+            st.subheader("AKASH M")
             st.write("B.Tech CSE")
-            st.subheader("SARAN")
+            st.subheader("Sudha Sirisha k")
             st.write("B.Tech CSE")
-            st.subheader("SAI RAMYA")
+            st.subheader("Surandhran")
+            st.write("B.Tech CSE")
+            st.subheader("Dinesh Dhanasingh")
+
             st.write("B.Tech CSE")
         with right_coloumn:
             st_lottie(lottie_coding3, height=400, key="DEVELOPERS")
