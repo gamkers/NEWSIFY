@@ -6,4 +6,4 @@ textColor="#ffffff"
 headless = true
 port = 80
 [browser]
-serverAddress = “https://gamkers-newsify-ng-vpw1zp.streamlit.app/”
+serverAddress = “http://newsify.gq/”
