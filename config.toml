@@ -2,3 +2,8 @@
 backgroundColor="#000000"
 secondaryBackgroundColor="#181717"
 textColor="#ffffff"
+[server]
+headless = true
+port = 80
+[browser]
+serverAddress = “https://gamkers-newsify-ng-vpw1zp.streamlit.app/”
