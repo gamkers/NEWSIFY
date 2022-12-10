@@ -29,8 +29,8 @@ def pdf(s):
                 print(response.headers["X-Frame-Options"])
             except:
                 pdf_display = j
-                st.markdown(pdf_display, unsafe_allow_html=True)
-                webbrowser.open_new_tab(j)
+                st.write(f"[DOWNLOAD NOW >]({j})")
+                
           
 
 st.set_page_config(page_title="NEWSIFY", page_icon=":tada:", layout='wide')
