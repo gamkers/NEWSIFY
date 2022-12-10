@@ -24,12 +24,7 @@ def pdf(s):
     query = f"{s}:pdf"
     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
         if ".pdf" in j:
-            response = requests.get(j)
-            try:
-                print(response.headers["X-Frame-Options"])
-            except:
-                pdf_display = j
-                st.write("[DOWNLOAD NOW >](docs.python.org/3/library/webbrowser.html)")
+            st.write(f"[DOWNLOAD NOW >](http://{j})")
                 
           
 
