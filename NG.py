@@ -23,7 +23,12 @@ def pdf(s):
 
     query = f"{s}:pdf"
     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
-            components.iframe(j)
+        if ".pdf" in j:
+            response = requests.get(j)
+            try:
+                print(response.headers["X-Frame-Options"])
+            except:
+                components.iframe(j)
                 
           
 
