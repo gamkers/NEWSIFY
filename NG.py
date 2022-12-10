@@ -24,13 +24,13 @@ def pdf(s):
 
     query = f"{s}:pdf"
     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
-        if ".pdf" in j:
-            response = requests.get(j)
-            try:
-                print(response.headers["X-Frame-Options"])
-            except:
-                pdf_display = f'<embed src="{"https://newsify.en.uptodown.com/android"}">'
-                st.markdown(pdf_display, unsafe_allow_html=True)
+#         if ".pdf" in j:
+#             response = requests.get(j)
+#             try:
+#                 print(response.headers["X-Frame-Options"])
+#             except:
+          pdf_display = f'<embed src="{j}">'
+          st.markdown(pdf_display, unsafe_allow_html=True)
 
 st.set_page_config(page_title="NEWSIFY", page_icon=":tada:", layout='wide')
 hide_menu_style = """
