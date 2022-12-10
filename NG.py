@@ -16,7 +16,7 @@ def speak(text):
 
 
 def pdf(s):
-    pdf_display = f'<embed src="https://newsify.en.uptodown.com/androidf">'
+    pdf_display = f'<embed src="https://knowledge.informatica.com/s/article/578105?language=en_US">'
     st.markdown(pdf_display, unsafe_allow_html=True)
     
 #     try:
