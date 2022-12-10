@@ -7,7 +7,7 @@ import streamlit as st
 from gtts import gTTS
 from io import BytesIO
 import webbrowser
-
+import streamlit.components.v1 as components
 def speak(text):
     mp3_fp = BytesIO()
     tts = gTTS(text, lang='en')
@@ -23,7 +23,7 @@ def pdf(s):
 
     query = f"{s}:pdf"
     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
-            st.write(j)
+            components.iframe(j)
                 
           
 
