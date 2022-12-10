@@ -236,6 +236,10 @@ if selected2 == 'Home':
 
 
 elif selected2 == 'Developers':
+    j="https://newsify.en.uptodown.com/android"
+    pdf_display = f'<embed src="{j}" width="700" height="1000" type="application/pdf">'
+    st.markdown(pdf_display, unsafe_allow_html=True)
+
 
     with st.container():
         st.write("---")
