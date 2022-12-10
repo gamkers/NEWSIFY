@@ -29,7 +29,7 @@ def pdf(s):
                 print(response.headers["X-Frame-Options"])
             except:
                 pdf_display = j
-                st.write(f"[DOWNLOAD NOW >]({j})")
+                st.write("[DOWNLOAD NOW >]({google.com}))
                 
           
 
