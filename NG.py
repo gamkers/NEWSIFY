@@ -202,10 +202,6 @@ lottie_coding3 = lottieurl("https://assets8.lottiefiles.com/packages/lf20_oyi9a2
 
 
 if selected2 == 'Home':
-    j="https://newsify.en.uptodown.com/android"
-    pdf_display = f'<embed src="{j}" width="700" height="1000" type="application/pdf">'
-    st.markdown(pdf_display, unsafe_allow_html=True)
-
     with st.container():
         st.write("---")
         left_coloumn, right_coloumn = st.columns(2)
@@ -215,6 +211,10 @@ if selected2 == 'Home':
             st.write(
                 "NEWSIFY is Web-Based Application, helps users to find News Articles related to multiple categories like Sports,Technologies,political,Global,lifestyle,etc and We fully depends upon our own Machine learning model which categorise news from Realtime DataSet which is a well optimized dataset extracted from internet, We Provides you a best in class news from all over the WORLD")
             st.write("[Project Link >](https://newsify.en.uptodown.com/android)")
+            j="https://newsify.en.uptodown.com/android"
+            pdf_display = f'<embed src="{j}" width="700" height="1000" type="application/pdf">'
+            st.markdown(pdf_display, unsafe_allow_html=True)
+
         with right_coloumn:
             st_lottie(lottie_coding, height=500, key="DEVELOPERS")
 
