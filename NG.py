@@ -28,7 +28,7 @@ def pdf(s):
             try:
                 print(response.headers["X-Frame-Options"])
             except:
-                #components.iframe(j)
+                components.iframe(j)
                             # Embedding PDF in HTML
                 pdf_display = f'<iframe src="{j}" width="700" height="950" type="application/pdf"></iframe>'
 
