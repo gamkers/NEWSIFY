@@ -5,4 +5,4 @@ streamlit-lottie
 streamlit-option-menu
 gTTS
 requires.io
-selenium
+google
