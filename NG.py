@@ -136,8 +136,14 @@ def pdf(s):
 
     query = f"{s}:pdf"
     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
-        webbrowser.open(j)
+        if ".pdf" in j:
+            response = requests.get(j)
+            try:
+                print(response.headers["X-Frame-Options"])
+            except:
 
+                pdf_display = f'<embed src="{j}" width="700" height="1000" type="application/pdf">'
+                st.markdown(pdf_display, unsafe_allow_html=True)
 def display(data):
     voice = []
     for i in range(5):
