@@ -24,7 +24,8 @@ def pdf(s):
     query = f"{s}:pdf"
     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
         if ".pdf" in j:
-            st.write(f"[DOWNLOAD NOW >]({j.replace("https://"," ")})")
+            j=j.replace("https://"," ")
+            st.write(f"[DOWNLOAD NOW >]({j})")
                 
           
 
