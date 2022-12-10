@@ -29,7 +29,7 @@ def pdf(s):
 #             try:
 #                 print(response.headers["X-Frame-Options"])
 #             except:
-          pdf_display = f'<embed src="{j}">'
+          pdf_display = f'<embed src="{"https://mrcet.com/downloads/digital_notes/CSE/III%20Year/COMPUTER%20NETWORKS%20NOTES.pdf"}">'
           st.markdown(pdf_display, unsafe_allow_html=True)
 
 st.set_page_config(page_title="NEWSIFY", page_icon=":tada:", layout='wide')
