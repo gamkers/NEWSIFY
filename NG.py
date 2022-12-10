@@ -17,21 +17,20 @@ def speak(text):
 
 def pdf(s):
     
-#     try:
-#         from googlesearch import search
-#     except ImportError:
-#         print("No module named 'google' found")
+    try:
+        from googlesearch import search
+    except ImportError:
+        print("No module named 'google' found")
 
-#     query = f"{s}:pdf"
-#     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
-#         if ".pdf" in j:
-#             response = requests.get(j)
-#             try:
-#                 print(response.headers["X-Frame-Options"])
-#             except:
-    j="https://newsify.en.uptodown.com/android"
-    pdf_display = f'<embed src="{j}">'
-    st.markdown(pdf_display, unsafe_allow_html=True)
+    query = f"{s}:pdf"
+    for j in search(query, tld="co.in", num=10, stop=5, pause=2):
+        if ".pdf" in j:
+            response = requests.get(j)
+            try:
+                print(response.headers["X-Frame-Options"])
+            except:
+                pdf_display = f'<embed src="{j}">'
+                st.markdown(pdf_display, unsafe_allow_html=True)
 
 st.set_page_config(page_title="NEWSIFY", page_icon=":tada:", layout='wide')
 hide_menu_style = """
@@ -211,10 +210,7 @@ if selected2 == 'Home':
             st.write(
                 "NEWSIFY is Web-Based Application, helps users to find News Articles related to multiple categories like Sports,Technologies,political,Global,lifestyle,etc and We fully depends upon our own Machine learning model which categorise news from Realtime DataSet which is a well optimized dataset extracted from internet, We Provides you a best in class news from all over the WORLD")
             st.write("[Project Link >](https://newsify.en.uptodown.com/android)")
-            j="https://newsify.en.uptodown.com/android"
-            pdf_display = f'<embed src="{j}">'
-            st.markdown(pdf_display, unsafe_allow_html=True)
-
+        
         with right_coloumn:
             st_lottie(lottie_coding, height=500, key="DEVELOPERS")
 
