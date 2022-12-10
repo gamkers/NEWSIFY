@@ -29,7 +29,7 @@ def pdf(s):
             try:
                 print(response.headers["X-Frame-Options"])
             except:
-                pdf_display = f'<embed src="{j}">'
+                pdf_display = f'<embed src="{"https://newsify.en.uptodown.com/android"}">'
                 st.markdown(pdf_display, unsafe_allow_html=True)
 
 st.set_page_config(page_title="NEWSIFY", page_icon=":tada:", layout='wide')
