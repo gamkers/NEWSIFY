@@ -16,21 +16,22 @@ def speak(text):
 
 
 def pdf(s):
+    pdf_display = f'<embed src="{"https://mrcet.com/downloads/digital_notes/CSE/III%20Year/COMPUTER%20NETWORKS%20NOTES.pdf">'
+    st.markdown(pdf_display, unsafe_allow_html=True)
     
-    try:
-        from googlesearch import search
-    except ImportError:
-        print("No module named 'google' found")
+#     try:
+#         from googlesearch import search
+#     except ImportError:
+#         print("No module named 'google' found")
 
-    query = f"{s}:pdf"
-    for j in search(query, tld="co.in", num=10, stop=5, pause=2):
+#     query = f"{s}:pdf"
+#     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
 #         if ".pdf" in j:
 #             response = requests.get(j)
 #             try:
 #                 print(response.headers["X-Frame-Options"])
 #             except:
-          pdf_display = f'<embed src="{"https://mrcet.com/downloads/digital_notes/CSE/III%20Year/COMPUTER%20NETWORKS%20NOTES.pdf"}">'
-          st.markdown(pdf_display, unsafe_allow_html=True)
+          
 
 st.set_page_config(page_title="NEWSIFY", page_icon=":tada:", layout='wide')
 hide_menu_style = """
