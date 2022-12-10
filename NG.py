@@ -24,16 +24,8 @@ def pdf(s):
     query = f"{s}:pdf"
     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
         if ".pdf" in j:
-            response = requests.get(j)
-            try:
-                print(response.headers["X-Frame-Options"])
-            except:
-                components.iframe(j)
-                            # Embedding PDF in HTML
-                pdf_display = f'<iframe src="{j}" width="700" height="950" type="application/pdf"></iframe>'
-
-                # Displaying File
-                st.markdown(pdf_display, unsafe_allow_html=True)
+            components.iframe(j)
+            
 
 
 
