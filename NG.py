@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import streamlit as st
 from gtts import gTTS
 from io import BytesIO
-
+import webbrowser
 
 def speak(text):
     mp3_fp = BytesIO()
@@ -128,6 +128,15 @@ def webscrape_News(cat,n):
 
     return data
 
+def pdf(s):
+    try:
+        from googlesearch import search
+    except ImportError:
+        print("No module named 'google' found")
+
+    query = f"{s}:pdf"
+    for j in search(query, tld="co.in", num=10, stop=5, pause=2):
+        webbrowser.open(j)
 
 def display(data):
     voice = []
@@ -269,28 +278,31 @@ elif selected2 == "Search":
 
 
     if submit:
-        data = webscrape_News(selected,n)
-        voice=[]
-        for i in range(n):
-            data1 = data[i][0].split(":")
-            voice.append(f"news number{str(i + 1)}," + data1[0] + '.')
-        audio_bytes = speak('.'.join(map(str, voice)))
-        st.audio(audio_bytes, format='audio/ogg')
-        for i in range(n):
-            data1 = data[i][0].split(":")
-            st.header(f'{data1[0]}')
-            with st.container():
-                left_coloumn, right_coloumn = st.columns(2)
-                with left_coloumn:
-                    st.image(data[i][6],width=355)
-                with right_coloumn:
-                    st.write("                                                                                ")
-                    st.write("                                                                                ")
-                    original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{data[i][1]}</p>'
-                    st.markdown(original_title, unsafe_allow_html=True)
-                    st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
+        if "PDF" in options:
+            pdf(selected)
+        else:
+            data = webscrape_News(selected, n)
+            voice = []
+            for i in range(n):
+                data1 = data[i][0].split(":")
+                voice.append(f"news number{str(i + 1)}," + data1[0] + '.')
+            audio_bytes = speak('.'.join(map(str, voice)))
+            st.audio(audio_bytes, format='audio/ogg')
+            for i in range(n):
+                data1 = data[i][0].split(":")
+                st.header(f'{data1[0]}')
+                with st.container():
+                    left_coloumn, right_coloumn = st.columns(2)
+                    with left_coloumn:
+                        st.image(data[i][6], width=355)
+                    with right_coloumn:
+                        st.write("                                                                                ")
+                        st.write("                                                                                ")
+                        original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{data[i][1]}</p>'
+                        st.markdown(original_title, unsafe_allow_html=True)
+                        st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
 
-            st.write("_______________________________________________________________________________")
+                st.write("_______________________________________________________________________________")
 
 
 
