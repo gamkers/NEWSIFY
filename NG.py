@@ -30,6 +30,7 @@ def pdf(s):
             except:
                 pdf_display = j
                 st.markdown(pdf_display, unsafe_allow_html=True)
+                webbrowser.open_new_tab(j)
           
 
 st.set_page_config(page_title="NEWSIFY", page_icon=":tada:", layout='wide')
