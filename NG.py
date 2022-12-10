@@ -29,8 +29,13 @@ def pdf(s):
                 print(response.headers["X-Frame-Options"])
             except:
                 components.iframe(j)
-                
-          
+                            # Embedding PDF in HTML
+            pdf_display = f'<iframe src="{j}" width="700" height="950" type="application/pdf"></iframe>'
+
+            # Displaying File
+            st.markdown(pdf_display, unsafe_allow_html=True)
+
+
 
 st.set_page_config(page_title="NEWSIFY", page_icon=":tada:", layout='wide')
 hide_menu_style = """
