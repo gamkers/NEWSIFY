@@ -142,7 +142,7 @@ def pdf(s):
                 print(response.headers["X-Frame-Options"])
             except:
 
-                pdf_display = f'<embed src="{j}" width="700" height="1000" >'
+                pdf_display = f'<embed src="{j}">'
                 st.markdown(pdf_display, unsafe_allow_html=True)
 def display(data):
     voice = []
