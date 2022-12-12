@@ -25,7 +25,17 @@ def pdf(s):
     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
         if ".pdf" in j:
             components.iframe(src=j, width=1285, height=1000, scrolling=True)
-            
+
+def ppt(s):
+    try:
+        from googlesearch import search
+    except ImportError:
+        print("No module named 'google' found")
+
+    query = f"{s}:pdf"
+    for j in search(query, tld="co.in", num=10, stop=5, pause=2):
+        if ".pdf" in j:
+            components.iframe(src=j, width=1285, height=1000, scrolling=True)            
 
 
 
@@ -274,7 +284,7 @@ elif selected2 == "Search":
 
     options = st.multiselect(
         'What you Looking for?',
-        ['Latest','Global','South Indian','Sports', 'Political', 'Technology','Science', 'Music', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business','PDF']
+        ['Latest','Global','South Indian','Sports', 'Political', 'Technology','Science', 'Music', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business','PDF','PPT']
         )
 
     n = st.slider('News Count', 0, 130, 25)
@@ -283,6 +293,8 @@ elif selected2 == "Search":
     if submit:
         if "PDF" in options:
             pdf(selected)
+        elif "PPT" in options:
+            ppt(selected)
         else:
             data = webscrape_News(selected, n)
             voice = []
