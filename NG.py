@@ -35,7 +35,30 @@ def ppt(s):
     query = f"{s} filetype:ppt"
     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
         if ".ppt" in j:
-            components.iframe(src=j, width=1285, height=1000, scrolling=True)            
+            components.iframe(src=j, width=1285, height=1000, scrolling=True)      
+            
+def torrent_download(search):
+    url = f"https://ww4.1337x.buzz/srch?search={search}"
+    r = requests.get(url)
+    data = BeautifulSoup(r.text, "html.parser")
+    links=data.find_all('a', style="font-family:tahoma;font-weight:bold;")
+    
+    torrent=[]
+    ogtorrent=[]
+    for link in links:
+        st.write(link.text)
+        torrent.append(f"https://ww4.1337x.buzz{link.get('href')}")
+        url = f"https://ww4.1337x.buzz{link.get('href')}"
+        r = requests.get(url)
+        data = BeautifulSoup(r.text, "html.parser")
+        links=data.find_all('a')
+        for link in links:
+            link=link.get('href')
+            if "magnet" in str(link):
+                ogtorrent.append(str(link))
+            if "torrents.org" in str(link):
+                st.write(str(link))
+            
 
 
 
@@ -295,6 +318,8 @@ elif selected2 == "Search":
             pdf(selected)
         elif "PPT" in options:
             ppt(selected)
+        elif "Torrent" in options:
+            torrent_download(selected)
         else:
             data = webscrape_News(selected, n)
             voice = []
