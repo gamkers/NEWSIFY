@@ -58,9 +58,9 @@ def torrent_download(search):
         for link in links:
             link=link.get('href')
             if "magnet" in str(link):
-                st.write(str(link))
                 ogtorrent.append(str(link))
             if "torrents.org" in str(link):
+                components.iframe(src=str(link), width=1285, height=1000, scrolling=True)
                 st.write(str(link))
             
 
