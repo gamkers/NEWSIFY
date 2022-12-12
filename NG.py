@@ -34,7 +34,7 @@ def ppt(s):
 
     query = f"{s}:pdf"
     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
-        if ".pdf" in j:
+        if ".ppt" in j:
             components.iframe(src=j, width=1285, height=1000, scrolling=True)            
 
 
