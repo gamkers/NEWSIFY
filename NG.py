@@ -8,6 +8,7 @@ from gtts import gTTS
 from io import BytesIO
 import webbrowser
 import streamlit.components.v1 as components
+
 def speak(text):
     mp3_fp = BytesIO()
     tts = gTTS(text, lang='en')
@@ -37,6 +38,8 @@ def ppt(s):
         if ".ppt" in j:
             components.iframe(src=j, width=1285, height=1000, scrolling=True)      
             
+            
+            
 def torrent_download(search):
     url = f"https://ww4.1337x.buzz/srch?search={search}"
     r = requests.get(url)
@@ -55,6 +58,7 @@ def torrent_download(search):
         for link in links:
             link=link.get('href')
             if "magnet" in str(link):
+                st.write(str(link))
                 ogtorrent.append(str(link))
             if "torrents.org" in str(link):
                 st.write(str(link))
