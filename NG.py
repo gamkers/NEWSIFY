@@ -21,7 +21,7 @@ def pdf(s):
     except ImportError:
         print("No module named 'google' found")
 
-    query = f"{s}:pdf"
+    query = f"{s} filetype:pdf"
     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
         if ".pdf" in j:
             components.iframe(src=j, width=1285, height=1000, scrolling=True)
@@ -32,7 +32,7 @@ def ppt(s):
     except ImportError:
         print("No module named 'google' found")
 
-    query = f"{s}:pdf"
+    query = f"{s} filetype:ppt"
     for j in search(query, tld="co.in", num=10, stop=5, pause=2):
         if ".ppt" in j:
             components.iframe(src=j, width=1285, height=1000, scrolling=True)            
