@@ -61,7 +61,7 @@ def torrent_download(search):
                 ogtorrent.append(str(link))
             if "torrents.org" in str(link):
                 
-                st.write(str(link))
+                st.markdown(str(link),unsafe_allow_html=true)
             
 
 
