@@ -58,11 +58,10 @@ def torrent_download(search):
         for link in links:
             link=link.get('href')
             if "magnet" in str(link):
-                ogtorrent.append(str(link))
                 st.markdown(f'<a href="{str(link)}">DOWNLOAD</a>',unsafe_allow_html=True)
             if "torrents.org" in str(link):
-                
-                st.markdown(f'<a href="{str(link)}">DOWNLOAD</a>',unsafe_allow_html=True)
+                ogtorrent.append(str(link))
+#                 st.markdown(f'<a href="{str(link)}">DOWNLOAD</a>',unsafe_allow_html=True)
             
 
 
