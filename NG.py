@@ -357,13 +357,7 @@ elif selected2 == "Search":
 
 
     if submit:
-        if "PDF" in options:
-            pdf(selected)
-        elif "PPT" in options:
-            ppt(selected)
-        elif "Torrent" in options:
-            torrent_download(selected)
-        else:
+     
             data = webscrape_News(selected, n)
             voice = []
             for i in range(n):
