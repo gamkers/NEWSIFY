@@ -320,7 +320,7 @@ elif selected2 == 'File Search':
             selected=f"{seleacted} research papers"
             pdf(selected)
         elif "Question Papers" in options:
-            selected=f'{seleacted} Question Papers"
+            selected=f"{seleacted} Question Papers"
             pdf(selected)
 
 elif selected2 == "Search":
