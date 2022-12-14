@@ -40,8 +40,8 @@ def ppt(s):
             
             
             
-def torrent_download(search+" course"):
-    url = f"https://ww4.1337x.buzz/srch?search={search}"
+def torrent_download(search):
+    url = f"https://ww4.1337x.buzz/srch?search={search} course"
     r = requests.get(url)
     data = BeautifulSoup(r.text, "html.parser")
     links=data.find_all('a', style="font-family:tahoma;font-weight:bold;")
