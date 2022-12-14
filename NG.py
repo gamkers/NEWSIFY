@@ -317,10 +317,10 @@ elif selected2 == 'File Search':
       tips the balance in favor of fair use. ''')
             torrent_download(selected)
         elif "Research papers" in options:
-            selected=seleacted+"research papers"
+            selected=f"{seleacted} research papers"
             pdf(selected)
         elif "Question Papers" in options:
-            selected=seleacted+"Question Papers"
+            selected=f'{seleacted} Question Papers"
             pdf(selected)
 
 elif selected2 == "Search":
