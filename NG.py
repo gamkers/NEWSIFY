@@ -269,23 +269,62 @@ if selected2 == 'Home':
 
 
 
-elif selected2 == 'Developers':
+elif selected2 == 'File Search':
+
+ def local_css(file_name):
+        with open(file_name) as f:
+            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 
-    with st.container():
-        st.write("---")
-        left_coloumn, right_coloumn = st.columns(2)
-        with left_coloumn:
+    def remote_css(url):
+        st.markdown(f'<link href="{url}" rel="stylesheet">', unsafe_allow_html=True)
 
-            st.header("DEVELOPERS")
-            st.subheader("AKASH M")
-            st.write("B.Tech CSE")
-            st.subheader("Sudha Sirisha k")
-            st.write("B.Tech CSE")
 
-            st.write("B.Tech CSE")
-        with right_coloumn:
-            st_lottie(lottie_coding3, height=400, key="DEVELOPERS")
+    def icon(icon_name):
+        st.markdown(f'<i class="material-icons">{icon_name}</i>', unsafe_allow_html=True)
+
+
+    local_css("style.css")
+    remote_css('https://fonts.googleapis.com/icon?family=Material+Icons')
+
+    st.header("Explore The World")
+    form = st.form(key='my-form')
+    selected = form.text_input("", "")
+    submit = form.form_submit_button("SEARCH")
+
+
+    options = st.multiselect(
+        'What you Looking for?',
+        ['PDF','PPT','Courses','Research papers','Question Papers',]
+        )
+
+    n = st.slider('News Count', 0, 130, 25)
+
+
+    if submit:
+        if "PDF" in options:
+            pdf(selected)
+        elif "PPT" in options:
+            ppt(selected)
+        elif "Courses" in options:
+            st.write('''Fair Use Act Disclaimer
+         This site is for educational purposes only!!
+
+                            **FAIR USE**
+
+      Copyright Disclaimer under section 107 of the Copyright Act 1976, allowance 
+      is made for “fair use” for purposes such as criticism, comment, news reporting, teaching, 
+      scholarship, education and research.Fair use is a use permitted by copyright statute that might
+      otherwise be infringing. Non-profit, educational or personal use 
+      tips the balance in favor of fair use. ''')
+            torrent_download(selected)
+        elif "Research papers" in options:
+            selected=seleacted+"research papers"
+            pdf(selected)
+        elif "Question Papers" in options:
+            selected=seleacted+"Question Papers"
+            pdf(selected)
+
 elif selected2 == "Search":
     def local_css(file_name):
         with open(file_name) as f:
@@ -311,7 +350,7 @@ elif selected2 == "Search":
 
     options = st.multiselect(
         'What you Looking for?',
-        ['Latest','Global','South Indian','Sports', 'Political', 'Technology','Science', 'Music', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business','PDF','PPT','Torrent']
+        ['Latest','Global','South Indian','Sports', 'Political', 'Technology','Science', 'Music', 'LifeStyle', "Entertainment", 'Crime', 'Food', 'Business']
         )
 
     n = st.slider('News Count', 0, 130, 25)
