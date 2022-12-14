@@ -323,6 +323,9 @@ elif selected2 == 'File Search':
         elif "Question Papers" in options:
             selected=f"{selected} Question Papers"
             pdf(selected)
+        elif "Question Papers" in options:
+            selected=f"{selected} BOOK"
+            pdf(selected)
 
 elif selected2 == "Search":
     def local_css(file_name):
