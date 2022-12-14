@@ -218,8 +218,8 @@ def display(data):
 
 
 
-selected2 = option_menu(None, ["Home", "Search", 'Developers'],
-                        icons=['house', 'search', 'people'],
+selected2 = option_menu(None, ["Home", "Search", 'File Search'],
+                        icons=['house', 'search', 'files'],
                         menu_icon="cast", default_index=0, orientation="horizontal")
 
 
