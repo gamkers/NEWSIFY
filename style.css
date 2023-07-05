@@ -16,6 +16,7 @@ body {
 
 /* Add rounded borders to the container */
 .menu .container-xxl {
+  color: #FF0000
   border-radius: 10px;
 }
 
