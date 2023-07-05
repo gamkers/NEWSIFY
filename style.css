@@ -13,3 +13,23 @@ body {
 .stTextInput>div>div>input {
     color: #FF0000;
 }
+
+/* Add rounded borders to the container */
+.menu .container-xxl {
+  border-radius: 10px;
+}
+
+/* Add rounded borders to the menu items */
+.menu .nav-item {
+  border-radius: 10px;
+}
+
+/* Add some padding to the menu items */
+.menu .nav-link {
+  padding: 10px;
+}
+
+/* Add a background color to the active menu item */
+.menu .nav-item .active {
+  background-color: #f0f0f0;
+}
