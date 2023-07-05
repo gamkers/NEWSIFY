@@ -219,7 +219,7 @@ def display(data):
 
 
 
-selected2 = option_menu(None, ["Home", "Search", 'File Search'],
+selected2 = option_menu(None, ["Home", "Search", 'Files'],
                         icons=['house', 'search', 'files'],
                         menu_icon="cast", default_index=0, orientation="horizontal")
 
