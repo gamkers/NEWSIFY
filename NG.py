@@ -130,7 +130,7 @@ def webscrape_MainNews(type):
             images.append(link)
 
     data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
-    data_dict = [dict(zip(["headlines", "news", "authors", "Date", "country", "category", "images"], item)) for item in zip(headlines, news, authors, Date, country, category, images)]
+    data_dict = [dict(zip(["headlines", "news", "authors", "Date", "country", "category", "images"], item)) for item in zip(headlines, news, authors, Date, country, catogory, images)]
     deta = Deta(st.secrets["data_key"])
     db = deta.Base("NEWS")
     db.put(data_dict)
