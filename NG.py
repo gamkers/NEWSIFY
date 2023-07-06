@@ -14,8 +14,10 @@ def speak(text):
     tts = gTTS(text, lang='en')
     tts.write_to_fp(mp3_fp)
     return mp3_fp
+    
+from deta import Deta
 
-
+    
 def pdf(s):
     try:
         from googlesearch import search
@@ -128,7 +130,10 @@ def webscrape_MainNews(type):
             images.append(link)
 
     data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
-
+    data_dict = [dict(zip(["headlines", "news", "authors", "Date", "country", "category", "images"], item)) for item in zip(headlines, news, authors, Date, country, category, images)]
+    deta = Deta(st.secrets["data_key"])
+    db = deta.Base("NEWS")
+    db.put(data_dict)
     return data
 
 def webscrape_News(cat,n):
@@ -175,7 +180,10 @@ def webscrape_News(cat,n):
             images.append(link)
 
     data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
-
+    data_dict = [dict(zip(["headlines", "news", "authors", "Date", "country", "category", "images"], item)) for item in zip(headlines, news, authors, Date, country, category, images)]
+    deta = Deta(st.secrets["data_key"])
+    db = deta.Base("NEWS")
+    db.put(data_dict)
     return data
 
 
