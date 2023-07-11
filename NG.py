@@ -215,7 +215,7 @@ def display(data):
                 break
     n = len(data)
     news_titles = [data[i][0].split(";")[0] for i in range(n)]
-    news_counts = pd.Series(news_titles).value_counts()
+    news_counts = pd.Series(news_titles).value_counts().head(10)
 
     st.header('Most Common News')
     st.write(news_counts)
