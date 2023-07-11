@@ -8,6 +8,7 @@ from gtts import gTTS
 from io import BytesIO
 import webbrowser
 import streamlit.components.v1 as components
+import pandas as pd
 
 def speak(text):
     mp3_fp = BytesIO()
