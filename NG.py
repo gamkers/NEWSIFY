@@ -10,6 +10,7 @@ import webbrowser
 import streamlit.components.v1 as components
 import pandas as pd
 import matplotlib.pyplot as plt
+from wordcloud import WordCloud
 
 def speak(text):
     mp3_fp = BytesIO()
