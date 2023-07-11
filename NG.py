@@ -240,6 +240,7 @@ def display(data):
     st.header('Word Cloud: News Titles')
     news_titles_text = ' '.join(news_titles)
     wordcloud = WordCloud().generate(news_titles_text)
+    plt.figure(figsize=(10,0))
     plt.imshow(wordcloud, interpolation='bilinear')
     plt.axis('off')
     st.pyplot(fig)
