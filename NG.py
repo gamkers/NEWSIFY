@@ -211,6 +211,19 @@ def display(data):
                     st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
                     st.write("_______________________________________________________________________________")
                 break
+    n = len(data)
+    news_titles = [data[i][0].split(";")[0] for i in range(n)]
+    news_counts = pd.Series(news_titles).value_counts()
+
+    st.header('Most Common News')
+    st.write(news_counts)
+
+    # Create a pie chart
+    st.header('Pie Chart: Most Common News')
+    fig, ax = plt.subplots()
+    ax.pie(news_counts, labels=news_counts.index, autopct='%1.1f%%')
+    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    st.pyplot(fig)
 
     for i in range(n):
         data1 = data[i][0].split(";")
