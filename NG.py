@@ -133,8 +133,9 @@ def webscrape_MainNews(type):
     data_dict = [dict(zip(["headlines", "news", "authors", "Date", "country", "category", "images"], item)) for item in zip(headlines, news, authors, Date, country, catogory, images)]
     deta = Deta(st.secrets["data_key"])
     db = deta.Base("News")
-    for i in data_dict:
-        db.put(i)
+    db.put_many(data_dict)
+    # for i in data_dict:
+    #     db.putMany(data_dict)
     return data
 
 def webscrape_News(cat,n):
@@ -184,8 +185,9 @@ def webscrape_News(cat,n):
     data_dict = [dict(zip(["headlines", "news", "authors", "Date", "country", "category", "images"], item)) for item in zip(headlines, news, authors, Date, country, catogory, images)]
     deta = Deta(st.secrets["data_key"])
     db = deta.Base("News")
-    for i in data_dict:
-        db.put(i)
+    db.put_many(data_dict)
+    # for i in data_dict:
+    #     db.put(i)
     return data
 
 
