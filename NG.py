@@ -226,6 +226,22 @@ def display(data):
     ax.pie(news_counts, labels=news_counts.index, autopct='%1.1f%%')
     ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
     st.pyplot(fig)
+    # Create a bar chart
+    st.header('Bar Chart: Top 10 Most Common News')
+    fig, ax = plt.subplots()
+    news_counts.plot(kind='bar')
+    plt.xlabel('News')
+    plt.ylabel('Count')
+    plt.title('Top 10 Most Common News')
+    st.pyplot(fig)
+
+    # Create a word cloud
+    st.header('Word Cloud: News Titles')
+    news_titles_text = ' '.join(news_titles)
+    wordcloud = WordCloud().generate(news_titles_text)
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.axis('off')
+    st.pyplot(fig)
 
     for i in range(n):
         data1 = data[i][0].split(";")
