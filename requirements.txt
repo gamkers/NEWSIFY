@@ -1,4 +1,4 @@
-streamlit==1.8.1
+streamlit
 beautifulsoup4==4.11.1
 requests==2.27.1
 streamlit-lottie
