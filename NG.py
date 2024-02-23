@@ -214,7 +214,7 @@ def display(data):
                     st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
                     st.write("_______________________________________________________________________________")
                 break
-    # n = len(data)
+    n = len(data)
     # news_titles = [data[i][0].split(";")[0] for i in range(n)]
     # news_counts = pd.Series(news_titles).value_counts().head(10)
 
