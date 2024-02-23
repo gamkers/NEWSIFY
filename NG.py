@@ -214,36 +214,36 @@ def display(data):
                     st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
                     st.write("_______________________________________________________________________________")
                 break
-    n = len(data)
-    news_titles = [data[i][0].split(";")[0] for i in range(n)]
-    news_counts = pd.Series(news_titles).value_counts().head(10)
+    # n = len(data)
+    # news_titles = [data[i][0].split(";")[0] for i in range(n)]
+    # news_counts = pd.Series(news_titles).value_counts().head(10)
 
-    st.header('Most Common News')
-    st.write(news_counts)
+    # st.header('Most Common News')
+    # st.write(news_counts)
 
-    # Create a pie chart
-    st.header('Pie Chart: Most Common News')
-    fig, ax = plt.subplots()
-    ax.pie(news_counts, labels=news_counts.index, autopct='%1.1f%%')
-    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-    st.pyplot(fig)
-    # Create a bar chart
-    st.header('Bar Chart: Top 10 Most Common News')
-    fig, ax = plt.subplots()
-    news_counts.plot(kind='bar')
-    plt.xlabel('News')
-    plt.ylabel('Count')
-    plt.title('Top 10 Most Common News')
-    st.pyplot(fig)
+    # # Create a pie chart
+    # st.header('Pie Chart: Most Common News')
+    # fig, ax = plt.subplots()
+    # ax.pie(news_counts, labels=news_counts.index, autopct='%1.1f%%')
+    # ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    # st.pyplot(fig)
+    # # Create a bar chart
+    # st.header('Bar Chart: Top 10 Most Common News')
+    # fig, ax = plt.subplots()
+    # news_counts.plot(kind='bar')
+    # plt.xlabel('News')
+    # plt.ylabel('Count')
+    # plt.title('Top 10 Most Common News')
+    # st.pyplot(fig)
 
-    # Create a word cloud
-    st.header('Word Cloud: News Titles')
-    news_titles_text = ' '.join(news_titles)
-    wordcloud = WordCloud().generate(news_titles_text)
-    #plt.figure(figsize=(10,0))
-    plt.imshow(wordcloud, interpolation='bilinear')
-    plt.axis('off')
-    st.pyplot(fig)
+    # # Create a word cloud
+    # st.header('Word Cloud: News Titles')
+    # news_titles_text = ' '.join(news_titles)
+    # wordcloud = WordCloud().generate(news_titles_text)
+    # #plt.figure(figsize=(10,0))
+    # plt.imshow(wordcloud, interpolation='bilinear')
+    # plt.axis('off')
+    # st.pyplot(fig)
 
     for i in range(n):
         data1 = data[i][0].split(";")
