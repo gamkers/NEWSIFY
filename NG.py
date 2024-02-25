@@ -125,7 +125,7 @@ def webscrape_MainNews(type):
             m = m[-1]
             m = m.split(",")
             m = m[-1]
-            country.append(m[:-112].replace("2022", "NA"))
+            country.append(m[:-112].replace("2024", "NA"))
 
         for im in image:
             link =im.find('img').get('src')
@@ -177,7 +177,7 @@ def webscrape_News(cat,n):
             k = k[-1]
             Date.append(k[:-20])
         for l in new:
-            catogory.append("Sports")
+            catogory.append(cat)
         for m in author:
             country.append("India")
         for im in image:
