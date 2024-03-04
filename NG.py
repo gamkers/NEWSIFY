@@ -139,8 +139,8 @@ def webscrape_MainNews(type):
     # This is how to create/connect a database
     db = deta.Base("news")
     for i in data:
-    print(i)
-    db.put({"Catogary": i[5], "Headlines": i[0], "Discription": i[1], "Image": i[6], "Author":  i[2], "Date": i[3],"Country": i[4]})
+        print(i)
+        db.put({"Catogary": i[5], "Headlines": i[0], "Discription": i[1], "Image": i[6], "Author":  i[2], "Date": i[3],"Country": i[4]})
 
     return data
 
