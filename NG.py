@@ -80,7 +80,6 @@ hide_menu_style = """
         </style>
         """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
-
 def webscrape_MainNews(type):
     info = ["HEAD LINES", "NEWS", "AUTHOR", "DATE", "COUNTRY", "CATEGORY"]
     Date = []
@@ -89,8 +88,9 @@ def webscrape_MainNews(type):
     catogory = []
     headlines = []
     country = []
-    images=[]
-    for i in range(0, 5):
+    images = []
+    
+    for i in range(0, 10):
         url = f"https://www.ndtv.com/{type}/page-{i}"
         r = requests.get(url)
         data = BeautifulSoup(r.text, "html.parser")
@@ -128,17 +128,20 @@ def webscrape_MainNews(type):
             country.append(m[:-112].replace("2024", "NA"))
 
         for im in image:
-            link =im.find('img').get('src')
-            
-            images.append(link)
+            link = im.find('img').get('src')
 
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
-    data_dict = [dict(zip(["headlines", "news", "authors", "Date", "country", "category", "images"], item)) for item in zip(headlines, news, authors, Date, country, catogory, images)]
+            images.append(link)
+    # insert_period(catogory,headlines, news,images, authors, Date)
+    data = [list(item) for item in list(zip(headlines, news,authors, Date, country, catogory, images))]
+    # Initialize with a project key
     deta = Deta(st.secrets["data_key"])
+    
+    # This is how to create/connect a database
     db = deta.Base("news")
-    # db.put_many(data_dict[:25])
-    # for i in data_dict:
-    #     db.putMany(data_dict)
+    for i in data:
+    print(i)
+    db.put({"Catogary": i[5], "Headlines": i[0], "Discription": i[1], "Image": i[6], "Author":  i[2], "Date": i[3],"Country": i[4]})
+
     return data
 
 def webscrape_News(cat,n):
