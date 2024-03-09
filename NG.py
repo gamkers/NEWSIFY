@@ -248,21 +248,21 @@ def display(data):
     # plt.axis('off')
     # st.pyplot(fig)
 
-    for i in range(n):
-        data1 = data[i][0].split(";")
-        st.header(f'{data1[0]}')
-        with st.container():
-            left_coloumn, right_coloumn = st.columns(2)
-            with left_coloumn:
-                st.image(data[i][6], width=355)
-            with right_coloumn:
-                st.write("                                                                                ")
-                st.write("                                                                                ")
-                original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{data[i][1]}</p>'
-                st.markdown(original_title, unsafe_allow_html=True)
-                st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
+    #for i in range(n):
+        #data1 = data[i][0].split(";")
+        #st.header(f'{data1[0]}')
+        #with st.container():
+            #left_coloumn, right_coloumn = st.columns(2)
+            #with left_coloumn:
+                #st.image(data[i][6], width=355)
+            #with right_coloumn:
+                #st.write("                                                                                ")
+                #st.write("                                                                                ")
+                #original_title = f'<p style="font-family:Times New Roman;  font-size: 18px;">{data[i][1]}</p>'
+                #st.markdown(original_title, unsafe_allow_html=True)
+                #st.write(f'AUTHOR & DATE: {data[i][2]} | {data[i][3]}')
 
-        st.write("_______________________________________________________________________________")
+        #st.write("_______________________________________________________________________________")
 
 
 
