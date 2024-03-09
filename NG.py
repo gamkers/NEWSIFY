@@ -199,12 +199,12 @@ def webscrape_News(cat,n):
 
 
 def display(data):
-    voice = []
-    for i in range(5):
-        data1 = data[i][1].split(":")
-        voice.append(f"news number{str(i + 1)}," + data1[0] + '.')
-    audio_bytes = speak('.'.join(map(str, voice)))
-    st.audio(audio_bytes, format='audio/ogg')
+    #voice = []
+    #for i in range(5):
+        #data1 = data[i][1].split(":")
+        #voice.append(f"news number{str(i + 1)}," + data1[0] + '.')
+    #audio_bytes = speak('.'.join(map(str, voice)))
+    #st.audio(audio_bytes, format='audio/ogg')
     if submit:
         for i in data:
             for j in i:
