@@ -133,14 +133,14 @@ def webscrape_MainNews(type):
             images.append(link)
     # insert_period(catogory,headlines, news,images, authors, Date)
     data = [list(item) for item in list(zip(headlines, news,authors, Date, country, catogory, images))]
-    # Initialize with a project key
-    deta = Deta(st.secrets["data_key"])
+    # # Initialize with a project key
+    # deta = Deta(st.secrets["data_key"])
     
-    # This is how to create/connect a database
-    db = deta.Base("news")
-    for i in data:
-        print(i)
-        db.put({"Catogary": i[5], "Headlines": i[0], "Discription": i[1], "Image": i[6], "Author":  i[2], "Date": i[3],"Country": i[4]})
+    # # This is how to create/connect a database
+    # db = deta.Base("news")
+    # for i in data:
+    #     print(i)
+    #     db.put({"Catogary": i[5], "Headlines": i[0], "Discription": i[1], "Image": i[6], "Author":  i[2], "Date": i[3],"Country": i[4]})
 
     return data
 
@@ -187,36 +187,37 @@ def webscrape_News(cat,n):
             link = im.get('src')
             images.append(link)
 
-    data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
-    data_dict = [dict(zip(["headlines", "news", "authors", "Date", "country", "category", "images"], item)) for item in zip(headlines, news, authors, Date, country, catogory, images)]
-    deta = Deta(st.secrets["data_key"])
-    db = deta.Base("news")
-    # db.put_many(data_dict[:25])
-    # for i in data_dict:
-    #     db.put(i)
+    # data = [list(item) for item in list(zip(headlines, news, authors, Date, country, catogory,images))]
+    # data_dict = [dict(zip(["headlines", "news", "authors", "Date", "country", "category", "images"], item)) for item in zip(headlines, news, authors, Date, country, catogory, images)]
+    # deta = Deta(st.secrets["data_key"])
+    # db = deta.Base("news")
+    # # db.put_many(data_dict[:25])
+    # # for i in data_dict:
+    # #     db.put(i)
     return data
 
 
 
 def display(data):
+    st.write(data)
     #voice = []
     #for i in range(5):
         #data1 = data[i][1].split(":")
         #voice.append(f"news number{str(i + 1)}," + data1[0] + '.')
     #audio_bytes = speak('.'.join(map(str, voice)))
     #st.audio(audio_bytes, format='audio/ogg')
-    if submit:
-        for i in data:
-            for j in i:
-                if selected in j:
-                    st.header(f' {i[0]}')
+    # if submit:
+    #     for i in data:
+    #         for j in i:
+    #             if selected in j:
+    #                 st.header(f' {i[0]}')
 
-                    original_title = f'<p style="font-family:Times New Roman; font-size: 18px;">{i[1]}</p>'
-                    st.markdown(original_title, unsafe_allow_html=True)
+    #                 original_title = f'<p style="font-family:Times New Roman; font-size: 18px;">{i[1]}</p>'
+    #                 st.markdown(original_title, unsafe_allow_html=True)
 
-                    st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
-                    st.write("_______________________________________________________________________________")
-                break
+    #                 st.write(f'AUTHOR & DATE: {i[2]} | {i[3]}')
+    #                 st.write("_______________________________________________________________________________")
+    #             break
     n = len(data)
     # news_titles = [data[i][0].split(";")[0] for i in range(n)]
     # news_counts = pd.Series(news_titles).value_counts().head(10)
